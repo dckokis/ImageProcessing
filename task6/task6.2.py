@@ -50,9 +50,9 @@ def getContours(image):
 	edges_canny = cv.Canny(image, 200, 250)
 
 	contours, hierarchy = cv.findContours(edges_canny, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
-	contours = filter_contours(contours)
+	filtered_contours = filter_contours(contours)
 
-	total_contour = np.vstack(contours)
+	total_contour = np.vstack(filtered_contours)
 	total_hull = cv.convexHull(total_contour)
 
 	return total_hull, total_contour
