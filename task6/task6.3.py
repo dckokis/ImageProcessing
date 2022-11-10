@@ -11,7 +11,6 @@ x_pos = 0
 y_pos = 0
 
 orig_img = cv.imread('task6-3.png')
-
 img = np.copy(orig_img)
 img = scaleImg(img, 0.7)
 
