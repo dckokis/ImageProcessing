@@ -2,6 +2,9 @@ import cv2 as cv
 import numpy as np
 
 
+# TODO: взять реальные примеры форм, например планеты
+
+
 def scaleImg(image, scale: float):
 	width, height = image.shape[1], image.shape[0]
 	return cv.resize(image, (int(width * scale), int(height * scale)))
@@ -9,13 +12,13 @@ def scaleImg(image, scale: float):
 
 x_pos = 0
 y_pos = 0
-
-orig_img = cv.imread('task6-3.png')
+scale = 0.4
+orig_img = cv.imread('planet3.png')
 img = np.copy(orig_img)
-img = scaleImg(img, 0.7)
+img = scaleImg(img, scale)
 
 cv.namedWindow('Original')
-cv.imshow('Original', scaleImg(orig_img, 0.7))
+cv.imshow('Original', scaleImg(orig_img, scale))
 
 
 def draw_bounding_boxes(_canvas, contours_to_draw):
@@ -76,12 +79,12 @@ cv.setMouseCallback('Types', onMouse)
 figure_types_layer = np.zeros(img.shape, dtype=np.uint8)
 
 while True:
-	edges_canny = cv.Canny(img, 200, 250)
+	edges_canny = cv.Canny(img, 10, 250)
 	contours, _ = cv.findContours(edges_canny, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
-	filtered_contours, approximated_contours = filter_contours(contours)
+	filtered_contours, approximated_contours = filter_contours(contours, 10000)
 	figure_types_layer[:, :, :] = 0  # Reset the layer
 
-	draw_bounding_boxes(figure_types_layer, contours)
+	draw_bounding_boxes(figure_types_layer, filtered_contours)
 
 	for idx, contour in enumerate(filtered_contours):
 		x, y, w, h = cv.boundingRect(contour)
@@ -99,3 +102,4 @@ while True:
 	if k == 27:
 		break
 cv.destroyAllWindows()
+exit()

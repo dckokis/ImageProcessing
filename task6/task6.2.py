@@ -2,7 +2,7 @@ import cv2 as cv
 import numpy as np
 
 
-img = cv.imread('example.png')
+img = cv.imread('planet3.png')
 
 
 def scaleImg(image, scale: float):
@@ -10,7 +10,7 @@ def scaleImg(image, scale: float):
 	return cv.resize(image, (int(_width * scale), int(_height * scale)))
 
 
-img = scaleImg(img, 0.5)
+img = scaleImg(img, 0.8)
 
 width = img.shape[1]
 height = img.shape[0]
@@ -34,7 +34,7 @@ def filter_contours(contours, tresh=0.002):
 
 def classify_area(_hull, _picture_width, _picture_height, grades=None):
 	if grades is None:
-		grades = [0.6, 0.2]
+		grades = [0.7, 0.3]
 	_, _, rect_width, rect_height = cv.boundingRect(_hull)
 	rect_area = rect_height * rect_width
 	ratio = rect_area / total_area
@@ -47,7 +47,7 @@ def classify_area(_hull, _picture_width, _picture_height, grades=None):
 
 
 def getContours(image):
-	edges_canny = cv.Canny(image, 200, 250)
+	edges_canny = cv.Canny(image, 1, 250)
 
 	contours, hierarchy = cv.findContours(edges_canny, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
 	filtered_contours = filter_contours(contours)
@@ -81,3 +81,4 @@ while True:
 		break
 
 cv.destroyAllWindows()
+exit()
