@@ -13,7 +13,7 @@ def scaleImg(image, scale: float):
 x_pos = 0
 y_pos = 0
 scale = 0.4
-orig_img = cv.imread('planet3.png')
+orig_img = cv.imread('planets.png')
 img = np.copy(orig_img)
 img = scaleImg(img, scale)
 
